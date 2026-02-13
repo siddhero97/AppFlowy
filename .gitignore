@@ -42,3 +42,9 @@ frontend/*.deb
 **/Cargo.toml.bak
 
 **/.cargo/**
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
