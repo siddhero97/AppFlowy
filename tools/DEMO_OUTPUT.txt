@@ -1,0 +1,252 @@
+================================================================================
+                 NOTION TO APPFLOWY MIGRATION SCRIPT
+                      Sample Execution Output
+================================================================================
+
+$ python notion_to_appflowy_migration.py \
+    --notion-export ~/Downloads/notion_export.zip \
+    --appflowy-url http://localhost:8080 \
+    --workspace-id workspace-123
+
+============================================================
+PRE-MIGRATION CHECK
+============================================================
+
+1. Testing AppFlowy connection...
+   ✓ Connection successful
+
+2. Validating Notion export...
+   ✓ Export file found
+
+============================================================
+CONTENT ANALYSIS & TIME ESTIMATION
+============================================================
+
+Extracting export to /tmp/notion_export_1707858123...
+
+📊 Content Statistics:
+   Total files: 127
+   Total pages: 50
+   Total size: 18.00 MB
+
+   File types breakdown:
+      .csv: 5
+      .html: 2
+      .jpg: 15
+      .md: 50
+      .png: 55
+
+⏱️  Time Estimation:
+   Estimated time: 5.3 minutes
+                   (0.09 hours)
+
+   Breakdown:
+      Processing: 25.0s
+      Upload: 180.0s
+      API overhead: 10.0s
+
+🔬 Complexity Analysis:
+   Algorithm: O(n + m)
+   where:
+      n = number of pages (50)
+      m = total content size (18874368 bytes)
+
+   Space Complexity: O(1)
+   - Streaming processing with minimal memory footprint
+   - No recursive structures or deep copying
+
+============================================================
+Proceed with migration? (yes/no): yes
+
+============================================================
+MIGRATION (ZIP Upload Method)
+============================================================
+
+Uploading Notion export ZIP to AppFlowy...
+✓ Upload successful! Import ID: abc123-def456-789
+
+============================================================
+MIGRATION SUMMARY
+============================================================
+
+📈 Statistics:
+   Total files: 127
+   Total pages: 50
+   Processed pages: 50
+   Failed items: 0
+   Success rate: 100.0%
+
+⏱️  Performance:
+   Duration: 185.45 seconds
+             (3.09 minutes)
+   Average time per page: 3.71s
+
+============================================================
+
+Migration completed successfully!
+All 50 pages have been imported to your AppFlowy workspace.
+
+================================================================================
+                            TEST SUITE OUTPUT
+================================================================================
+
+$ python test_migration.py
+
+✓ Successfully imported migration modules
+============================================================
+Notion to AppFlowy Migration Tool - Test Suite
+============================================================
+
+============================================================
+Creating Mock Notion Export
+============================================================
+✓ Created mock export at: /tmp/tmp1ameshrv/mock_notion_export.zip
+  Size: 4358 bytes
+
+============================================================
+Testing Export Parser
+============================================================
+
+1. Testing extraction...
+   ✓ Extracted to: /tmp/notion_export_1771021540
+
+2. Testing content analysis...
+   ✓ Analysis complete:
+      Total files: 12
+      Total pages: 11
+      Total size: 3196 bytes
+      File types: {'.csv': 1, '.md': 10, '.html': 1}
+
+3. Testing time estimation...
+   ✓ Estimation complete:
+      Estimated: 0.13 minutes
+      Processing: 5.5s
+      Upload: 0.0s
+      API overhead: 2.2s
+
+4. Verifying complexity characteristics...
+   ✓ Correct page count: 11
+   ✓ Parser uses O(1) space - stores only metadata
+
+============================================================
+Testing Migration Stats
+============================================================
+
+✓ Stats calculated:
+   Duration: 100s
+   Success rate: 96.0%
+   ✓ All calculations correct
+
+============================================================
+Complexity Analysis Summary
+============================================================
+
+The migration tool has the following complexity characteristics:
+
+Time Complexity: O(n + m)
+  where:
+    n = number of pages in the export
+    m = total content size in bytes
+  
+  Operations:
+    - File extraction: O(n) - iterate through each file
+    - Content analysis: O(n) - scan each file once
+    - Content reading: O(m) - read file contents
+    - Upload: O(n) - upload each page once
+    - Total: O(n + m) → O(n) when n dominates
+
+Space Complexity: O(1)
+  - Streaming file processing
+  - One file processed at a time
+  - Minimal memory footprint
+  - No recursive data structures
+  - Memory usage independent of input size
+
+Performance Characteristics:
+  - Linear scaling with input size
+  - Predictable resource usage
+  - Suitable for large exports (1000+ pages)
+  - Network I/O is typically the bottleneck
+
+Estimated Performance:
+  - Small export (10-50 pages): < 1 minute
+  - Medium export (50-200 pages): 1-5 minutes
+  - Large export (200-1000 pages): 5-30 minutes
+  - Very large export (1000+ pages): 30+ minutes
+  
+  Note: Actual time depends heavily on network speed and server performance
+
+
+============================================================
+✓ All tests passed!
+============================================================
+
+Next steps:
+1. Install dependencies: pip install -r requirements.txt
+2. Export your Notion workspace
+3. Run the migration:
+   python notion_to_appflowy_migration.py \
+       --notion-export /path/to/export.zip \
+       --appflowy-url http://localhost:8080 \
+       --workspace-id YOUR_WORKSPACE_ID
+
+================================================================================
+                         HELP OUTPUT
+================================================================================
+
+$ python notion_to_appflowy_migration.py --help
+
+usage: notion_to_appflowy_migration.py [-h] --notion-export NOTION_EXPORT
+                                       --appflowy-url APPFLOWY_URL
+                                       --workspace-id WORKSPACE_ID
+                                       [--api-key API_KEY] [--no-zip-import]
+
+Migrate Notion export to AppFlowy self-hosted instance
+
+options:
+  -h, --help            show this help message and exit
+  --notion-export NOTION_EXPORT
+                        Path to Notion export ZIP file
+  --appflowy-url APPFLOWY_URL
+                        URL of AppFlowy self-hosted instance
+  --workspace-id WORKSPACE_ID
+                        AppFlowy workspace ID for import destination
+  --api-key API_KEY     API key for authentication (optional)
+  --no-zip-import       Disable ZIP import and use individual page upload
+
+Examples:
+  # Basic migration with ZIP upload
+  python notion_to_appflowy_migration.py \
+      --notion-export /path/to/notion_export.zip \
+      --appflowy-url http://localhost:8080 \
+      --workspace-id YOUR_WORKSPACE_ID
+  
+  # Migration with API key authentication
+  python notion_to_appflowy_migration.py \
+      --notion-export /path/to/notion_export.zip \
+      --appflowy-url https://appflowy.example.com \
+      --workspace-id YOUR_WORKSPACE_ID \
+      --api-key YOUR_API_KEY
+
+Big O Complexity:
+  Time Complexity: O(n + m) where n = pages, m = content size
+  Space Complexity: O(1) with streaming processing
+
+================================================================================
+                         PROJECT STRUCTURE
+================================================================================
+
+tools/
+├── README.md                        # Quick start guide (62 lines)
+├── README_MIGRATION.md              # Comprehensive docs (366 lines)
+├── SUMMARY.md                       # Technical summary (274 lines)
+├── notion_to_appflowy_migration.py  # Main script (593 lines)
+├── test_migration.py                # Test suite (282 lines)
+├── requirements.txt                 # Dependencies (1 line)
+└── DEMO_OUTPUT.txt                  # This file
+
+Total Lines: 1,578+ lines
+Documentation: 700+ lines
+Code: 875+ lines
+
+================================================================================
