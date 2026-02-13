@@ -60,7 +60,8 @@ class MigrationStats:
     @property
     def duration_seconds(self) -> float:
         """Calculate duration in seconds"""
-        if self.end_time > 0 and self.start_time >= 0:
+        # Only calculate if both times have been set (non-zero)
+        if self.end_time > 0 and self.start_time > 0:
             return self.end_time - self.start_time
         return 0
     
